@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07090c">
+  <title>GRIDLINE // Service Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="identity">
+        <span class="mark" aria-hidden="true"></span>
+        <div class="brand">LOCAL <span>/</span> SERVICE DIRECTORY</div>
+      </div>
+      <div class="top-right">
+        <span class="local-state"><i></i> PRIVATE NETWORK</span>
+        <span id="clock">--:--:--</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <div class="eyebrow">Personal network · access point</div>
+          <h1>Services, in one place.</h1>
+          <p class="lede">Choose a destination to open its interface.</p>
+        </div>
+        <div class="intro-side">
+          <small>AVAILABLE DESTINATIONS</small>
+          <strong><span id="total-count">00</span> <span>/ INDEXED</span></strong>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <section class="toolbar" aria-label="Service controls">
+        <div class="section-name"><span>01</span> SERVICE DIRECTORY</div>
+        <div class="tools">
+          <div class="search-wrap">
+            <input id="search" type="search" placeholder="Search services..."
+                   aria-label="Search services" autocomplete="off">
+          </div>
+          <select id="category" aria-label="Filter by category">
+            <option value="">All categories</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="service-grid" id="service-list" aria-label="Services"></section>
+
+      <footer class="footer">
+        <span>LOCAL SERVICE DIRECTORY</span>
+        <span>CONFIGURATION · services.json</span>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

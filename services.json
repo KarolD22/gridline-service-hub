@@ -1,0 +1,46 @@
+{
+  "services": [
+    {
+      "name": "Home Assistant",
+      "description": "Smart home control",
+      "url": "http://homeassistant.local:8123",
+      "category": "Home",
+      "icon": "⌂"
+    },
+    {
+      "name": "Jellyfin",
+      "description": "Movies and media",
+      "url": "http://jellyfin.local:8096",
+      "category": "Media",
+      "icon": "▶"
+    },
+    {
+      "name": "Immich",
+      "description": "Personal photo library",
+      "url": "http://immich.local:2283",
+      "category": "Media",
+      "icon": "▧"
+    },
+    {
+      "name": "NAS",
+      "description": "Network storage",
+      "url": "http://nas.local",
+      "category": "Infrastructure",
+      "icon": "▤"
+    },
+    {
+      "name": "AdGuard Home",
+      "description": "DNS filtering",
+      "url": "http://adguard.local",
+      "category": "Infrastructure",
+      "icon": "◇"
+    },
+    {
+      "name": "Router",
+      "description": "Network administration",
+      "url": "http://192.168.1.1",
+      "category": "Infrastructure",
+      "icon": "⌁"
+    }
+  ]
+}
