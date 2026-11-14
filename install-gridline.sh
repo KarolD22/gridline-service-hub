@@ -13,7 +13,9 @@ die() { printf '[GRIDLINE] ERROR: %s\n' "$*" >&2; exit 1; }
 [[ "$EUID" -eq 0 ]] || die "Run with sudo: sudo ./install.sh"
 
 SOURCE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-for file in index.html styles.css app.js services.json; do
+
+# Verify all required project files, including the favicon.
+for file in index.html styles.css app.js services.json gridline.png; do
     [[ -f "$SOURCE_DIR/$file" ]] || die "Missing $file. Extract the complete project and run this script from its folder."
 done
 
@@ -27,9 +29,14 @@ SERVICE_GROUP="$(id -gn "$SERVICE_USER")"
 
 log "Installing files to $INSTALL_DIR"
 install -d -o "$SERVICE_USER" -g "$SERVICE_GROUP" -m 0755 "$INSTALL_DIR"
+
 install -o "$SERVICE_USER" -g "$SERVICE_GROUP" -m 0644 \
-    "$SOURCE_DIR/index.html" "$SOURCE_DIR/styles.css" \
-    "$SOURCE_DIR/app.js" "$SOURCE_DIR/services.json" "$INSTALL_DIR/"
+    "$SOURCE_DIR/index.html" \
+    "$SOURCE_DIR/styles.css" \
+    "$SOURCE_DIR/app.js" \
+    "$SOURCE_DIR/services.json" \
+    "$SOURCE_DIR/gridline.png" \
+    "$INSTALL_DIR/"
 
 log "Creating systemd service"
 cat > "$SERVICE_FILE" <<EOF
@@ -49,6 +56,7 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
+
 chmod 0644 "$SERVICE_FILE"
 
 log "Enabling service at boot and starting it now"
@@ -58,8 +66,10 @@ systemctl enable --now "$SERVICE_NAME.service"
 log "Installation complete"
 printf 'Service: %s.service\nUser: %s\nDirectory: %s\nAddress: %s:%s\n' \
     "$SERVICE_NAME" "$SERVICE_USER" "$INSTALL_DIR" "$BIND_ADDRESS" "$PORT"
+
 printf '\nStatus: sudo systemctl status %s\nLogs:   sudo journalctl -u %s -f\n' \
     "$SERVICE_NAME.service" "$SERVICE_NAME.service"
+
 printf 'Browse to: http://<server-ip>:%s\n' "$PORT"
 
 if [[ "$BIND_ADDRESS" == "0.0.0.0" ]]; then
